@@ -187,9 +187,14 @@ export default function ProjectNav({ workspaceSlug, pageLabel }: Props) {
 		? `/projects/view/${encodeURIComponent(project.slug)}`
 		: "/projects/view";
 
+	// The issue list is workspace-wide unless `?project=KEY` is set — it reads that filter
+	// param, not the project-context store the other tabs use — so the Issues tab has to
+	// carry it, or a project's Issues tab lists every project's issues.
+	const issuesHref = `/issues?project=${encodeURIComponent(project.key)}`;
+
 	const tabs = TABS.map((t) => ({
 		...t,
-		href: t.path === "/projects/view" ? overviewHref : t.path,
+		href: t.path === "/projects/view" ? overviewHref : t.path === "/issues" ? issuesHref : t.path,
 	}));
 
 	const visibleTabs = tabs.slice(0, visibleCount);

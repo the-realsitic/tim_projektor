@@ -138,6 +138,28 @@ describe("ProjectNav", () => {
 		expect(headerLink?.getAttribute("href")).toBe("/projects/view/projektor");
 	});
 
+	it("links the Issues tab to the issue list filtered by the current project", async () => {
+		// IssueList is workspace-wide unless ?project=KEY is set — without it a project's
+		// Issues tab listed every project's issues.
+		window.history.pushState({}, "", "/wiki?id=p1");
+		mockFetchProject(PROJECT);
+		render(<ProjectNav />);
+		await screen.findByText("Projektor");
+		expect(screen.getByRole("link", { name: "Issues" }).getAttribute("href")).toBe(
+			"/issues?project=PROJ"
+		);
+		// Other tabs keep their plain paths — the project-context store carries identity.
+		expect(screen.getByRole("link", { name: "Wiki" }).getAttribute("href")).toBe("/wiki");
+	});
+
+	it("keeps the Issues tab active on its filtered URL", async () => {
+		window.history.pushState({}, "", "/issues?project=PROJ&id=p1");
+		mockFetchProject(PROJECT);
+		render(<ProjectNav />);
+		await screen.findByText("Projektor");
+		expect(screen.getByRole("link", { name: "Issues" }).getAttribute("aria-current")).toBe("page");
+	});
+
 	it("marks Overview active when on its slug path, even without a matching plain-path tab", async () => {
 		window.history.pushState({}, "", "/projects/view/projektor");
 		mockFetchProject(PROJECT);
