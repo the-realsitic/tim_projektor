@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, tim]   # Projektor X: our PRs target `tim`, not `main`
   # Allow other workflows (e.g. release.yml) to run these exact checks as a gate.
   workflow_call:
 
