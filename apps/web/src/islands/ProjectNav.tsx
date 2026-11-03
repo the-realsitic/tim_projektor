@@ -5,6 +5,7 @@ import {
 	type ProjectSummary,
 	projectError,
 } from "../lib/project-context";
+import { xProjectTabs } from "../x/nav";
 
 interface Props {
 	workspaceSlug?: string;
@@ -19,6 +20,7 @@ const TABS: Array<{ label: string; path: string }> = [
 	{ label: "Epics", path: "/epics" },
 	{ label: "Metrics", path: "/metrics" },
 	{ label: "Feedback", path: "/feedback" },
+	...xProjectTabs,
 ];
 
 const KEY_BADGE_CLASS =

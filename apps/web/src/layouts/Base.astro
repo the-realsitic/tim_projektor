@@ -5,6 +5,7 @@ import { GlossaryHelp } from '../islands/GlossaryHelp';
 import { OfflineBanner } from '../islands/OfflineBanner';
 import type { GlossaryTermId } from '../islands/glossary-definitions';
 import pkg from '../../package.json';
+import { xSidebarItems } from '../x/nav';
 import '../styles/tokens.css';
 import '../styles/global.css';
 
@@ -29,6 +30,7 @@ const navItems: Array<{ href: string; label: string; icon: NavIcon; glossaryId?:
   { href: '/my-issues', label: 'My Issues', icon: 'my-issues' },
   { href: '/settings/groups', label: 'Groups', icon: 'groups', glossaryId: 'groups' },
   { href: '/settings/tokens', label: 'Connect Agent', icon: 'tokens', glossaryId: 'tokens' },
+  ...xSidebarItems,
 ];
 ---
 <!DOCTYPE html>
